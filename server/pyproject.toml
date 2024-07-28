@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "graphtmu"
+version = "0.1.0"
+description = "TMU needs to do something about its shitty syllabus search system."
+authors = ["yoseio <yoseio@brainoid.dev>"]
+license = "MIT"
+readme = "../README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.common.dependencies]
+numpy = "^2.0.1"
+pandas = "^2.2.2"
+pydantic = "^2.8.2"
+python-dotenv = "^1.0.1"
+toolz = "^0.12.1"
+tqdm = "^4.66.4"
+openai = "^1.38.0"
+
+[tool.poetry.group.scraper.dependencies]
+itemadapter = "^0.9.0"
+scrapy = "^2.11.2"
+w3lib = "^2.2.1"
+
+[tool.poetry.group.dev.dependencies]
+# lint
+poethepoet = "^0.27.0"
+pyright = "^1.1.370"
+ruff = "^0.5.1"
+
+# dev
+camelot-py = "^0.11.0"
+ipykernel = "^6.29.5"
+jupyter = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+# linter
+_pyright = "pyright"
+_ruff_check = "ruff check . --preview"
+_ruff_format = "ruff format  . --preview"
+_ruff_sort = "ruff check --select I --fix . --preview"
+
+# scraper
+_scrape_reset = "rm -rf data/raw/*"
+_scrape_kyouikujouhou = "scrapy crawl kyouikujouhou"
+_scrape_tmu = "scrapy crawl tmu"
+
+[[tool.poe.tasks.format]]
+sequence = ["_ruff_sort", "_ruff_format"]
+ignore_fail = "return_non_zero"
+
+[[tool.poe.tasks.check]]
+sequence = ["_ruff_check", "_pyright"]
+ignore_fail = "return_non_zero"
+
+[[tool.poe.tasks.scrape]]
+sequence = ["_scrape_reset", "_scrape_kyouikujouhou", "_scrape_tmu"]
+ignore_fail = "return_non_zero"

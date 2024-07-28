@@ -5,7 +5,8 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
     "ghcr.io/devcontainers-contrib/features/poetry:2": {},
-    "ghcr.io/devcontainers/features/nvidia-cuda:1": {}
+    "ghcr.io/devcontainers/features/nvidia-cuda:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
   },
   "customizations": {
     "vscode": {
@@ -19,5 +20,8 @@
   "containerEnv": {
     "POETRY_VIRTUALENVS_IN_PROJECT": "true"
   },
-  "postCreateCommand": "poetry install"
+  "forwardPorts": [
+    7474,
+    7687
+  ]
 }

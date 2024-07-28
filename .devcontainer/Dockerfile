@@ -8,5 +8,9 @@ ENV PYTHONUNBUFFERED 1
 #    && rm -rf /tmp/pip-tmp
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+        # https://docs.scrapy.org/en/latest/intro/install.html#ubuntu-14-04-or-above
+        libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev \
+        # https://camelot-py.readthedocs.io/en/master/user/install-deps.html#ubuntu
+        ghostscript python3-tk libopencv-dev

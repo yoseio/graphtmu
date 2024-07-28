@@ -9,16 +9,20 @@ services:
     volumes:
       - ../..:/workspaces:cached
 
-  # postgres:
-  #   image: postgres:latest
-  #   restart: unless-stopped
-  #   network_mode: service:app
-  #   volumes:
-  #     - postgres:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_DB: postgres
-  #     POSTGRES_PASSWORD: postgres
+  neo4j:
+    image: neo4j:5.15.0
+    restart: unless-stopped
+    network_mode: service:app
+    volumes:
+      - neo4j-data:/data
+      - neo4j-plugins:/plugins
+    environment:
+      NEO4J_AUTH: neo4j/password
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_import_file_use__neo4j__config: "true"
+      NEO4J_PLUGINS: "[\"apoc\", \"apoc-extended\", \"graph-data-science\"]"
 
-# volumes:
-#   postgres:
+volumes:
+  neo4j-data:
+  neo4j-plugins:
