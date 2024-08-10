@@ -10,13 +10,22 @@ readme = "../README.md"
 python = "^3.11"
 
 [tool.poetry.group.common.dependencies]
-numpy = "^2.0.1"
-pandas = "^2.2.2"
-pydantic = "^2.8.2"
+email-validator = "^2.2.0"
+pydantic = {extras = ["email"], version = "^2.8.2"}
 python-dotenv = "^1.0.1"
 toolz = "^0.12.1"
 tqdm = "^4.66.4"
-openai = "^1.38.0"
+pandas = "^2.2.2"
+
+[tool.poetry.group.llm.dependencies]
+langchain = "^0.2.12"
+langchain-community = "^0.2.11"
+langchain-core = "^0.2.29"
+langchain-openai = "==0.1.21rc2"
+
+[tool.poetry.group.extractor.dependencies]
+firebase-admin = "^6.5.0"
+google-cloud-firestore = "^2.17.0"
 
 [tool.poetry.group.scraper.dependencies]
 itemadapter = "^0.9.0"
@@ -25,14 +34,13 @@ w3lib = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 # lint
-poethepoet = "^0.27.0"
 pyright = "^1.1.370"
 ruff = "^0.5.1"
 
 # dev
-camelot-py = "^0.11.0"
 ipykernel = "^6.29.5"
 jupyter = "^1.0.0"
+poethepoet = "^0.27.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -45,6 +53,10 @@ _ruff_check = "ruff check . --preview"
 _ruff_format = "ruff format  . --preview"
 _ruff_sort = "ruff check --select I --fix . --preview"
 
+# extractor
+_extract_teacher = "python -m graphtmu.extractor.teacher"
+_extract_firestore = "python -m graphtmu.extractor.firestore"
+
 # scraper
 _scrape_reset = "rm -rf data/raw/*"
 _scrape_kyouikujouhou = "scrapy crawl kyouikujouhou"
@@ -56,6 +68,10 @@ ignore_fail = "return_non_zero"
 
 [[tool.poe.tasks.check]]
 sequence = ["_ruff_check", "_pyright"]
+ignore_fail = "return_non_zero"
+
+[[tool.poe.tasks.extract]]
+sequence = ["_extract_teacher", "_extract_firestore"]
 ignore_fail = "return_non_zero"
 
 [[tool.poe.tasks.scrape]]

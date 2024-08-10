@@ -4,15 +4,19 @@
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
+    "ghcr.io/devcontainers-contrib/features/firebase-cli:2": {},
     "ghcr.io/devcontainers-contrib/features/poetry:2": {},
+    "ghcr.io/devcontainers/features/java:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/nvidia-cuda:1": {},
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/dhoeric/features/google-cloud-cli:1": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
         "ms-toolsai.jupyter",
+        "qwtel.sqlite-viewer",
         "tamasfe.even-better-toml"
       ]
     }
@@ -21,7 +25,12 @@
     "POETRY_VIRTUALENVS_IN_PROJECT": "true"
   },
   "forwardPorts": [
+    4000,
+    4400,
+    4500,
     7474,
-    7687
+    7687,
+    8080,
+    9150
   ]
 }

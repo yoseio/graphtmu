@@ -2,11 +2,37 @@
 
 [Tokyo Metropolitan University][TMU] needs to do something about its [shitty syllabus search system][CampusSquare].
 
-## Scraper
+## 1. Scraper
 
 ```shell
 $ cd server
 $ poetry run poe scrape
+```
+
+## 2. Extractor
+
+```shell
+$ cd server/firebase
+$ firebase emulators:start
+```
+
+```shell
+$ cd server
+$ poetry run poe extract
+```
+
+```shell
+$ gcloud alpha firestore indexes composite create \
+  --collection-group=keywords \
+  --query-scope=COLLECTION \
+  --field-config field-path=embedding,vector-config='{"dimension":"512", "flat": "{}"}'
+```
+
+## 3. Client
+
+```shell
+$ cd client
+$ npm run dev
 ```
 
 [TMU]: https://www.tmu.ac.jp/
