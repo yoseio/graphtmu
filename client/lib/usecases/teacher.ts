@@ -12,6 +12,15 @@ export async function getTeacherById(id: string): Promise<Teacher | undefined> {
   return data;
 }
 
+export async function getAllTeachers(): Promise<Teacher[]> {
+  const collection = FirestoreClient
+    .collection("teachers")
+    .withConverter(TeacherConverter);
+  const snapshot = await collection.get();
+  const teachers = snapshot.docs.map(doc => doc.data());
+  return teachers;
+}
+
 export async function findTeachersByKeyword(keyword: string): Promise<Teacher[]> {
   const keywords = await findNearestKeywords(keyword);
   const unrefedKeywords = await Promise.all(keywords.map(unrefKeyword));
