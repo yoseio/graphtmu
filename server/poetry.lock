@@ -2129,13 +2129,13 @@ typing-extensions = ">=4.7"
 
 [[package]]
 name = "langchain-openai"
-version = "0.1.21rc2"
+version = "0.1.21"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_openai-0.1.21rc2-py3-none-any.whl", hash = "sha256:49e7209c2896cd59cfcc9565b4f836328469c1d4a23dde55ae902b3e52ada31d"},
-    {file = "langchain_openai-0.1.21rc2.tar.gz", hash = "sha256:57dd0fa90528f5030c3aaeca6600177f8fcf617b3f76fa03cca7cb03c7d93c54"},
+    {file = "langchain_openai-0.1.21-py3-none-any.whl", hash = "sha256:44420f0c84859ae236a80c8ac8754a16d5b660c24377c27ba98308145d346352"},
+    {file = "langchain_openai-0.1.21.tar.gz", hash = "sha256:2c65feaf12bb284eccf7bce35725fd06f3035fa751babad6aa84af2f99867f88"},
 ]
 
 [package.dependencies]
@@ -4951,4 +4951,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "53bac359261812ac9c22f41de00a183818436d8669882b0c8becd29575694f45"
+content-hash = "ae809c85c3309979febce9dff382c9e69e2baa4caec1b6631b91ac2a5aa96094"

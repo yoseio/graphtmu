@@ -21,7 +21,7 @@ pandas = "^2.2.2"
 langchain = "^0.2.12"
 langchain-community = "^0.2.11"
 langchain-core = "^0.2.29"
-langchain-openai = "==0.1.21rc2"
+langchain-openai = "==0.1.21"
 
 [tool.poetry.group.extractor.dependencies]
 firebase-admin = "^6.5.0"
