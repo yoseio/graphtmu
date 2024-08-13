@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache'
+
 import { TeacherConverter } from "@/lib/converters/teacher";
 import { Teacher } from "@/lib/models/teacher";
 import { findNearestKeywords, unrefKeyword } from "@/lib/usecases/keyword";
@@ -12,6 +14,8 @@ export async function getTeacherById(id: string): Promise<Teacher | undefined> {
   return data;
 }
 
+export const getTeacherByIdCached = unstable_cache(getTeacherById);
+
 export async function getAllTeachers(): Promise<Teacher[]> {
   const collection = FirestoreClient
     .collection("teachers")
@@ -20,6 +24,8 @@ export async function getAllTeachers(): Promise<Teacher[]> {
   const teachers = snapshot.docs.map(doc => doc.data());
   return teachers;
 }
+
+export const getAllTeachersCached = unstable_cache(getAllTeachers);
 
 export async function findTeachersByKeyword(keyword: string): Promise<Teacher[]> {
   const keywords = await findNearestKeywords(keyword);

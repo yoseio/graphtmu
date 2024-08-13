@@ -2,7 +2,7 @@ import { Metadata, ResolvingMetadata } from "next"
 import { notFound } from "next/navigation";
 
 import { Separator } from "@/components/ui/separator"
-import { getAllTeachers, getTeacherById } from "@/lib/usecases/teacher";
+import { getAllTeachersCached, getTeacherByIdCached } from "@/lib/usecases/teacher";
 
 interface Props {
   params: {
@@ -15,7 +15,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const id = props.params.id;
-  const teacher = await getTeacherById(id);
+  const teacher = await getTeacherByIdCached(id);
 
   return {
     title: `${teacher?.name} - GraphTMU`,
@@ -23,13 +23,13 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const teachers = await getAllTeachers();
+  const teachers = await getAllTeachersCached();
   return teachers.map((teacher) => ({ id: teacher.identifier }))
 }
 
 export default async function Page(props: Props) {
   const id = props.params.id;
-  const teacher = await getTeacherById(id);
+  const teacher = await getTeacherByIdCached(id);
 
   if (!teacher) {
     notFound();
