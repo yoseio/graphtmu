@@ -30,8 +30,7 @@ if __name__ == "__main__":
                     continue
                 keyword_doc = db.collection("keywords").document(keyword)
                 batch.set(
-                    keyword_doc,
-                    {"keyword": keyword, "embedding": Vector(embedding)}
+                    keyword_doc, {"keyword": keyword, "embedding": Vector(embedding)}
                 )
                 batch.update(keyword_doc, {"teachers": ArrayUnion([teacher_doc])})
 

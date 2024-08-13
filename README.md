@@ -30,7 +30,18 @@ $ gcloud alpha firestore indexes composite create \
   --field-config field-path=embedding,vector-config='{"dimension":"512", "flat": "{}"}'
 ```
 
-### 3. Client
+### 3. Grapher
+
+```cypher
+CREATE CONSTRAINT n10s_unique_uri FOR (r:Resource) REQUIRE r.uri IS UNIQUE;
+```
+
+```shell
+$ cd server
+$ poetry run poe graph
+```
+
+### 4. Client
 
 ```shell
 $ cd client

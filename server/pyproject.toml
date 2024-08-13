@@ -21,11 +21,15 @@ pandas = "^2.2.2"
 langchain = "^0.2.12"
 langchain-community = "^0.2.11"
 langchain-core = "^0.2.29"
-langchain-openai = "==0.1.21rc2"
+langchain-openai = "^0.1.21"
 
 [tool.poetry.group.extractor.dependencies]
 firebase-admin = "^6.5.0"
 google-cloud-firestore = "^2.17.0"
+
+[tool.poetry.group.grapher.dependencies]
+rdflib = "^7.0.0"
+rdflib-neo4j = "^1.0"
 
 [tool.poetry.group.scraper.dependencies]
 itemadapter = "^0.9.0"
@@ -56,6 +60,9 @@ _ruff_sort = "ruff check --select I --fix . --preview"
 # extractor
 _extract_teacher = "python -m graphtmu.extractor.teacher"
 _extract_firestore = "python -m graphtmu.extractor.firestore"
+
+# grapher
+graph = "python -m graphtmu.grapher"
 
 # scraper
 _scrape_reset = "rm -rf data/raw/*"
