@@ -52,35 +52,35 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 # linter
-_pyright = "pyright"
-_ruff_check = "ruff check . --preview"
-_ruff_format = "ruff format  . --preview"
-_ruff_sort = "ruff check --select I --fix . --preview"
+pyright = "pyright"
+ruff_check = "ruff check . --preview"
+ruff_format = "ruff format  . --preview"
+ruff_sort = "ruff check --select I --fix . --preview"
 
 # extractor
-_extract_teacher = "python -m graphtmu.extractor.teacher"
-_extract_firestore = "python -m graphtmu.extractor.firestore"
+extract_teacher = "python -m graphtmu.extractor.teacher"
+extract_firestore = "python -m graphtmu.extractor.firestore"
 
 # grapher
 graph = "python -m graphtmu.grapher"
 
 # scraper
-_scrape_reset = "rm -rf data/raw/*"
-_scrape_kyouikujouhou = "scrapy crawl kyouikujouhou"
-_scrape_tmu = "scrapy crawl tmu"
+scrape_reset = "rm -rf data/raw/*"
+scrape_kyouikujouhou = "scrapy crawl kyouikujouhou"
+scrape_tmu = "scrapy crawl tmu"
 
 [[tool.poe.tasks.format]]
-sequence = ["_ruff_sort", "_ruff_format"]
+sequence = ["ruff_sort", "ruff_format"]
 ignore_fail = "return_non_zero"
 
 [[tool.poe.tasks.check]]
-sequence = ["_ruff_check", "_pyright"]
+sequence = ["ruff_check", "pyright"]
 ignore_fail = "return_non_zero"
 
 [[tool.poe.tasks.extract]]
-sequence = ["_extract_teacher", "_extract_firestore"]
+sequence = ["extract_teacher", "extract_firestore"]
 ignore_fail = "return_non_zero"
 
 [[tool.poe.tasks.scrape]]
-sequence = ["_scrape_reset", "_scrape_kyouikujouhou", "_scrape_tmu"]
+sequence = ["scrape_reset", "scrape_kyouikujouhou", "scrape_tmu"]
 ignore_fail = "return_non_zero"

@@ -38,6 +38,22 @@ class DefinedTerm:
 
 
 @dataclass
+class Thing:
+    """Thing
+
+    https://schema.org/Thing
+
+
+    Attributes:
+        identifier : https://schema.org/identifier
+        name       : https://schema.org/name
+    """
+
+    identifier: str
+    name: str
+
+
+@dataclass
 class ContactPoint:
     """ContactPoint
 
@@ -81,5 +97,5 @@ class Teacher:
     description: str
     email: Optional[str]
     jobTitle: Optional[DefinedTerm]
-    knowsAbout: List[str]
+    knowsAbout: List[Thing]
     workLocation: Optional[ContactPoint]

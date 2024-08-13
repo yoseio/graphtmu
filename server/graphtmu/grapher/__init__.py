@@ -3,12 +3,18 @@ from urllib.parse import quote, urljoin
 from rdflib import RDF, Graph, Literal, URIRef
 from rdflib.namespace import SDO
 
-from graphtmu.models.teacher import ContactPoint, DefinedTerm, Organization, Teacher
+from graphtmu.models.teacher import (
+    ContactPoint,
+    DefinedTerm,
+    Organization,
+    Teacher,
+    Thing,
+)
 
 
 def addOrganization(graph: Graph, data: Organization) -> URIRef:
     URI_BASE = "https://yoseio.github.io/GraphTMU/Organization/"
-    sub = URIRef(quote(urljoin(URI_BASE, data.identifier)))
+    sub = URIRef(urljoin(URI_BASE, quote(data.identifier)))
     if len(graph) != 0 and (sub, RDF.type, SDO.Organization) in graph:
         return sub
 
@@ -24,7 +30,7 @@ def addOrganization(graph: Graph, data: Organization) -> URIRef:
 
 def addDefinedTerm(graph: Graph, data: DefinedTerm) -> URIRef:
     URI_BASE = "https://yoseio.github.io/GraphTMU/DefinedTerm/"
-    sub = URIRef(quote(urljoin(URI_BASE, data.identifier)))
+    sub = URIRef(urljoin(URI_BASE, quote(data.identifier)))
     if len(graph) != 0 and (sub, RDF.type, SDO.DefinedTerm) in graph:
         return sub
 
@@ -35,9 +41,22 @@ def addDefinedTerm(graph: Graph, data: DefinedTerm) -> URIRef:
     return sub
 
 
+def addThing(graph: Graph, data: Thing) -> URIRef:
+    URI_BASE = "https://yoseio.github.io/GraphTMU/Thing/"
+    sub = URIRef(urljoin(URI_BASE, quote(data.identifier)))
+    if len(graph) != 0 and (sub, RDF.type, SDO.Thing) in graph:
+        return sub
+
+    graph.add((sub, RDF.type, SDO.Thing))
+    graph.add((sub, SDO.identifier, Literal(data.identifier)))
+    graph.add((sub, SDO.name, Literal(data.name)))
+
+    return sub
+
+
 def addContactPoint(graph: Graph, data: ContactPoint) -> URIRef:
     URI_BASE = "https://yoseio.github.io/GraphTMU/ContactPoint/"
-    sub = URIRef(quote(urljoin(URI_BASE, data.identifier)))
+    sub = URIRef(urljoin(URI_BASE, quote(data.identifier)))
     if len(graph) != 0 and (sub, RDF.type, SDO.ContactPoint) in graph:
         return sub
 
@@ -52,7 +71,7 @@ def addContactPoint(graph: Graph, data: ContactPoint) -> URIRef:
 
 def addTeacher(graph: Graph, data: Teacher) -> URIRef:
     URI_BASE = "https://yoseio.github.io/GraphTMU/Person/"
-    sub = URIRef(quote(urljoin(URI_BASE, data.identifier)))
+    sub = URIRef(urljoin(URI_BASE, quote(data.identifier)))
     if len(graph) != 0 and (sub, RDF.type, SDO.Person) in graph:
         return sub
 
@@ -60,8 +79,8 @@ def addTeacher(graph: Graph, data: Teacher) -> URIRef:
     graph.add((sub, SDO.identifier, Literal(data.identifier)))
     graph.add((sub, SDO.name, Literal(data.name)))
     for affiliation in data.affiliation:
-        organization = addOrganization(graph, affiliation)
-        graph.add((sub, SDO.affiliation, organization))
+        affiliation = addOrganization(graph, affiliation)
+        graph.add((sub, SDO.affiliation, affiliation))
     for alternateName in data.alternateName:
         graph.add((sub, SDO.alternateName, Literal(alternateName)))
     graph.add((sub, SDO.description, Literal(data.description)))
@@ -71,7 +90,8 @@ def addTeacher(graph: Graph, data: Teacher) -> URIRef:
         jobTitle = addDefinedTerm(graph, data.jobTitle)
         graph.add((sub, SDO.jobTitle, jobTitle))
     for knowsAbout in data.knowsAbout:
-        graph.add((sub, SDO.knowsAbout, Literal(knowsAbout)))
+        knowsAbout = addThing(graph, knowsAbout)
+        graph.add((sub, SDO.knowsAbout, knowsAbout))
     if data.workLocation:
         workLocation = addContactPoint(graph, data.workLocation)
         graph.add((sub, SDO.workLocation, workLocation))

@@ -5,6 +5,7 @@ if __name__ == "__main__":
     from pydantic import RootModel
     from rdflib import Graph
     from rdflib_neo4j import HANDLE_VOCAB_URI_STRATEGY, Neo4jStore, Neo4jStoreConfig
+    from tqdm import tqdm
 
     from graphtmu.grapher import addTeacher
     from graphtmu.models.teacher import Teacher
@@ -28,7 +29,7 @@ if __name__ == "__main__":
             graph.remove(triple)
 
     with open("data/teacher.jsonl", mode="r") as f:
-        for line in f.readlines():
+        for line in tqdm(f.readlines()):
             teacher = RootModel[Teacher].model_validate_json(line).root
             addTeacher(graph, teacher)
 
