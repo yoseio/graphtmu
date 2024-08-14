@@ -4,3 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function NullToUndefined<T>(value: T | null): T | undefined {
+  return value === null ? undefined : value;
+}
