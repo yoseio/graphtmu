@@ -17,7 +17,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const id = props.params.id;
-  const teacher = await teacherUseCase.getById(id);
+  const teacher = await teacherUseCase.getByIdWithCache(id);
 
   return {
     title: `${teacher?.name} - GraphTMU`,
@@ -25,13 +25,13 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const teachers = await teacherUseCase.getAll();
+  const teachers = await teacherUseCase.getAllWithCache();
   return teachers.map((teacher) => ({ id: teacher.identifier }))
 }
 
 export default async function Page(props: Props) {
   const id = props.params.id;
-  const teacher = await teacherUseCase.getById(id);
+  const teacher = await teacherUseCase.getByIdWithCache(id);
 
   if (!teacher) {
     notFound();

@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache"
 import { CollectionReference } from "@google-cloud/firestore";
 
 import { TeacherConverter } from "@/lib/converters/teacher";
@@ -21,9 +22,17 @@ export class TeacherRepository {
     return data;
   }
 
+  public getByIdWithCache(id: string): Promise<Teacher | undefined> {
+    return unstable_cache((id) => this.getById(id))(id);
+  }
+
   public async getAll(): Promise<Teacher[]> {
     const snapshot = await this.collection.get();
     const teachers = snapshot.docs.map(doc => doc.data());
     return teachers;
+  }
+
+  public getAllWithCache(): Promise<Teacher[]> {
+    return unstable_cache(() => this.getAll())();
   }
 }

@@ -35,8 +35,16 @@ export class TeacherUseCase {
     return this.teacherRepository.getById(id);
   }
 
+  public getByIdWithCache(id: string): Promise<Teacher | undefined> {
+    return this.teacherRepository.getByIdWithCache(id);
+  }
+
   public getAll(): Promise<Teacher[]> {
     return this.teacherRepository.getAll();
+  }
+
+  public getAllWithCache(): Promise<Teacher[]> {
+    return this.teacherRepository.getAllWithCache();
   }
 
   public async findByKeyword(keyword: string): Promise<Teacher[]> {

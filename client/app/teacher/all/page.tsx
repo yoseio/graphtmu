@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  const teachers = await teacherUseCase.getAll();
+  const teachers = await teacherUseCase.getAllWithCache();
 
   return (
     <ul>
