@@ -9,6 +9,10 @@ export interface DefinedTerm extends Identifiable {
   name: string,
 }
 
+export interface Thing extends Identifiable {
+  name: string,
+}
+
 export interface ContactPoint extends Identifiable {
   areaServed: string,
   telephone?: string,
@@ -20,7 +24,7 @@ export interface Teacher extends Identifiable {
   description: string,
   email?: string,
   jobTitle?: DefinedTerm,
-  knowsAbout: string[],
+  knowsAbout: Thing[],
   name: string,
   workLocation?: ContactPoint,
 }

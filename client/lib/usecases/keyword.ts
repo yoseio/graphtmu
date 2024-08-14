@@ -1,37 +1,27 @@
-import { FieldValue } from "@google-cloud/firestore";
-
-import { KeywordConverter } from "@/lib/converters/keyword";
 import { Keyword, UnrefedKeyword } from "@/lib/models/keyword";
 import { Teacher } from "@/lib/models/teacher";
-import { FirestoreClient, OpenAIClient } from "@/lib/clients";
+import { KeywordRepository } from "@/lib/repositories/keyword";
 
-export async function findNearestKeywords(keyword: string): Promise<Keyword[]> {
-  const embedding = await OpenAIClient.embeddings.create({
-    model: "text-embedding-3-small",
-    dimensions: 512,
-    input: keyword,
-  });
+export class KeywordUseCase {
+  private keywordRepository: KeywordRepository;
 
-  const collection = FirestoreClient
-    .collection("keywords")
-    .withConverter(KeywordConverter);
-  const snapshot = await collection.findNearest(
-    "embedding",
-    FieldValue.vector(embedding.data[0].embedding),
-    { limit: 5, distanceMeasure: "EUCLIDEAN" },
-  ).get();
-  const docs = snapshot.docs.map((doc) => doc.data());
+  constructor() {
+    this.keywordRepository = new KeywordRepository();
+  }
 
-  return docs;
-}
+  private async unref(keyword: Keyword): Promise<UnrefedKeyword> {
+    const snapshots = await Promise.all(keyword.teachers.map(async (ref) => ref.get()));
+    const teachers = snapshots.map((snapshot) => snapshot.data()).filter((item): item is Teacher => !!item);
 
-export async function unrefKeyword(keyword: Keyword): Promise<UnrefedKeyword> {
-  const snapshots = await Promise.all(keyword.teachers.map(async (ref) => ref.get()));
-  const teachers = snapshots.map((snapshot) => snapshot.data()).filter((item): item is Teacher => !!item);
+    return {
+      keyword: keyword.keyword,
+      embedding: keyword.embedding,
+      teachers,
+    };
+  }
 
-  return {
-    keyword: keyword.keyword,
-    embedding: keyword.embedding,
-    teachers,
-  };
+  public async findNearest(keyword: string): Promise<UnrefedKeyword[]> {
+    const keywords = await this.keywordRepository.findNearest(keyword);
+    return Promise.all(keywords.map(this.unref));
+  }
 }
