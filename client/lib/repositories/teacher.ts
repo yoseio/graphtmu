@@ -22,8 +22,8 @@ export class TeacherRepository {
     return data;
   }
 
-  public async getByIdWithCache(id: string): Promise<Teacher | undefined> {
-    return unstable_cache(this.getById)(id);
+  public getByIdWithCache(id: string): Promise<Teacher | undefined> {
+    return unstable_cache((id) => this.getById(id))(id);
   }
 
   public async getAll(): Promise<Teacher[]> {
@@ -32,7 +32,7 @@ export class TeacherRepository {
     return teachers;
   }
 
-  public async getAllWithCache(): Promise<Teacher[]> {
-    return unstable_cache(this.getAll)();
+  public getAllWithCache(): Promise<Teacher[]> {
+    return unstable_cache(() => this.getAll())();
   }
 }
