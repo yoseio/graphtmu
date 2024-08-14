@@ -23,6 +23,31 @@ services:
       NEO4J_apoc_import_file_use__neo4j__config: "true"
       NEO4J_PLUGINS: "[\"apoc\", \"n10s\", \"graph-data-science\"]"
 
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    restart: unless-stopped
+    network_mode: service:app
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    restart: unless-stopped
+    network_mode: service:app
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    restart: unless-stopped
+    network_mode: service:app
+    command: ["--config=/etc/otel-collector.yaml"]
+    volumes:
+      - ./otel-collector.yaml:/etc/otel-collector.yaml
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    network_mode: service:app
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+
 volumes:
   neo4j-data:
   neo4j-plugins:
