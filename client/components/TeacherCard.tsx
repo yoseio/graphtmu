@@ -23,8 +23,8 @@ export function TeacherCard(props: TeacherCardProps) {
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
           {props.teacher.knowsAbout.map(knowsAbout => (
-            <Badge key={knowsAbout} variant="secondary" className="hover:bg-secondary/50">
-              {knowsAbout}
+            <Badge key={knowsAbout.identifier} variant="secondary" className="hover:bg-secondary/50">
+              {knowsAbout.name}
             </Badge>
           ))}
         </div>

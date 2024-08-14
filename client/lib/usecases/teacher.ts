@@ -1,48 +1,55 @@
-import { unstable_cache } from 'next/cache'
-
-import { TeacherConverter } from "@/lib/converters/teacher";
+import { UnrefedKeyword } from "@/lib/models/keyword";
 import { Teacher } from "@/lib/models/teacher";
-import { findNearestKeywords, unrefKeyword } from "@/lib/usecases/keyword";
-import { FirestoreClient } from "@/lib/clients";
+import { TeacherRepository } from "@/lib/repositories/teacher";
+import { KeywordUseCase } from "@/lib/usecases/keyword";
 
-export async function getTeacherById(id: string): Promise<Teacher | undefined> {
-  const collection = FirestoreClient
-    .collection("teachers")
-    .withConverter(TeacherConverter);
-  const snapshot = await collection.doc(id).get();
-  const data = snapshot.data();
-  return data;
-}
+export class TeacherUseCase {
+  private teacherRepository: TeacherRepository;
+  private keywordUseCase: KeywordUseCase;
 
-export const getTeacherByIdCached = unstable_cache(getTeacherById);
+  constructor() {
+    this.teacherRepository = new TeacherRepository();
+    this.keywordUseCase = new KeywordUseCase();
+  }
 
-export async function getAllTeachers(): Promise<Teacher[]> {
-  const collection = FirestoreClient
-    .collection("teachers")
-    .withConverter(TeacherConverter);
-  const snapshot = await collection.get();
-  const teachers = snapshot.docs.map(doc => doc.data());
-  return teachers;
-}
+  private ranking(keywords: UnrefedKeyword[]): Teacher[] {
+    const teachers: Map<string, Teacher> = new Map();
+    const scores: Map<string, number> = new Map();
 
-export const getAllTeachersCached = unstable_cache(getAllTeachers);
-
-export async function findTeachersByKeyword(keyword: string): Promise<Teacher[]> {
-  const keywords = await findNearestKeywords(keyword);
-  const unrefedKeywords = await Promise.all(keywords.map(unrefKeyword));
-  const scores: Map<Teacher, number> = new Map();
-
-  unrefedKeywords.forEach((keyword, index) => {
-    const weight = 1 / (index + 1);
-    keyword.teachers.forEach(teacher => {
-      const prevWeight = scores.get(teacher) || 0;
-      scores.set(teacher, prevWeight + weight);
+    keywords.forEach((keyword, index) => {
+      const weight = 1 / (index + 1);
+      keyword.teachers.forEach(teacher => {
+        const prevWeight = scores.get(teacher.identifier) || 0;
+        teachers.set(teacher.identifier, teacher);
+        scores.set(teacher.identifier, prevWeight + weight);
+      });
     });
-  });
 
-  const rankedTeachers = Array.from(scores.entries())
-    .sort((a, b) => b[1] - a[1])
-    .map(entry => entry[0]);
+    return Array.from(scores.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(entry => entry[0])
+      .map(id => teachers.get(id) as Teacher);
+  }
 
-  return rankedTeachers;
+  public getById(id: string): Promise<Teacher | undefined> {
+    return this.teacherRepository.getById(id);
+  }
+
+  public getByIdWithCache(id: string): Promise<Teacher | undefined> {
+    return this.teacherRepository.getByIdWithCache(id);
+  }
+
+  public getAll(): Promise<Teacher[]> {
+    return this.teacherRepository.getAll();
+  }
+
+  public getAllWithCache(): Promise<Teacher[]> {
+    return this.teacherRepository.getAllWithCache();
+  }
+
+  public async findByKeyword(keyword: string): Promise<Teacher[]> {
+    const keywords = await this.keywordUseCase.findNearest(keyword);
+    const teachers = this.ranking(keywords);
+    return teachers;
+  }
 }

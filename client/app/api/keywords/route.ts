@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findTeachersByKeyword } from "@/lib/usecases/teacher";
+
+import { TeacherUseCase } from "@/lib/usecases/teacher";
+
+const teacherUseCase = new TeacherUseCase();
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -7,6 +10,6 @@ export async function GET(request: NextRequest) {
   if (!keyword) {
     return NextResponse.json([]);
   }
-  const teachers = await findTeachersByKeyword(keyword);
+  const teachers = await teacherUseCase.findByKeyword(keyword);
   return NextResponse.json(teachers);
 }
