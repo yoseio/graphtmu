@@ -6,7 +6,6 @@ import useSWR from 'swr';
 import { Input } from "@/components/ui/input"
 import { TeacherCard } from "@/components/TeacherCard";
 import { keywordsFetcher } from "@/lib/fetchers/keyword";
-import { uniq } from "@/lib/utils";
 import { useHandleParam } from "@/lib/hooks/useHandleParam";
 
 export default function Page() {
@@ -15,7 +14,6 @@ export default function Page() {
 
   const query = searchParams.get("keyword")?.toString();
   const { data } = useSWR(query, keywordsFetcher);
-  const teachers = uniq(data || []);
 
   return (
     <>
@@ -28,7 +26,7 @@ export default function Page() {
         />
       </div>
       <div className="grid gap-6">
-        {teachers.map((teacher) => (
+        {(data || []).map((teacher) => (
           <TeacherCard key={teacher.identifier} teacher={teacher} />
         ))}
       </div>

@@ -1,14 +1,16 @@
 import { Metadata } from "next"
 import Link from "next/link";
 
-import { getAllTeachers } from "@/lib/usecases/teacher";
+import { TeacherUseCase } from "@/lib/usecases/teacher";
+
+const teacherUseCase = new TeacherUseCase();
 
 export const metadata: Metadata = {
   title: "All Teachers - GraphTMU",
 }
 
 export default async function Page() {
-  const teachers = await getAllTeachers();
+  const teachers = await teacherUseCase.getAll();
 
   return (
     <ul>

@@ -25,12 +25,10 @@
     "POETRY_VIRTUALENVS_IN_PROJECT": "true"
   },
   "forwardPorts": [
-    4000,
-    4400,
-    4500,
-    7474,
-    7687,
-    8080,
-    9150
+    3000,   // Next.js
+    7474,   // Neo4j
+    9090,   // Prometheus
+    9411,   // Zipkin
+    16686   // Jaeger
   ]
 }
