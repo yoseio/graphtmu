@@ -1,5 +1,10 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
+    "noImplicitReturns": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
