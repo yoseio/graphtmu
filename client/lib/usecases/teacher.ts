@@ -1,3 +1,5 @@
+import { trace } from "@opentelemetry/api"
+
 import { UnrefedKeyword } from "@/lib/models/keyword";
 import { Teacher } from "@/lib/models/teacher";
 import { TeacherRepository } from "@/lib/repositories/teacher";
@@ -32,24 +34,64 @@ export class TeacherUseCase {
   }
 
   public getById(id: string): Promise<Teacher | undefined> {
-    return this.teacherRepository.getById(id);
+    return trace
+      .getTracer("GraphTMU")
+      .startActiveSpan("TeacherUseCase.getById", async (span) => {
+        try {
+          return this.teacherRepository.getById(id);
+        } finally {
+          span.end()
+        }
+      })
   }
 
   public getByIdWithCache(id: string): Promise<Teacher | undefined> {
-    return this.teacherRepository.getByIdWithCache(id);
+    return trace
+      .getTracer("GraphTMU")
+      .startActiveSpan("TeacherUseCase.getByIdWithCache", async (span) => {
+        try {
+          return this.teacherRepository.getByIdWithCache(id);
+        } finally {
+          span.end()
+        }
+      })
   }
 
   public getAll(): Promise<Teacher[]> {
-    return this.teacherRepository.getAll();
+    return trace
+      .getTracer("GraphTMU")
+      .startActiveSpan("TeacherUseCase.getAll", async (span) => {
+        try {
+          return this.teacherRepository.getAll();
+        } finally {
+          span.end()
+        }
+      })
   }
 
   public getAllWithCache(): Promise<Teacher[]> {
-    return this.teacherRepository.getAllWithCache();
+    return trace
+      .getTracer("GraphTMU")
+      .startActiveSpan("TeacherUseCase.getAllWithCache", async (span) => {
+        try {
+          return this.teacherRepository.getAllWithCache();
+        } finally {
+          span.end()
+        }
+      })
   }
 
   public async findByKeyword(keyword: string): Promise<Teacher[]> {
-    const keywords = await this.keywordUseCase.findNearest(keyword);
-    const teachers = this.ranking(keywords);
-    return teachers;
+    return await trace
+      .getTracer("GraphTMU")
+      .startActiveSpan("TeacherUseCase.findByKeyword", async (span) => {
+        try {
+          const keywords = await this.keywordUseCase.findNearest(keyword);
+          const teachers = this.ranking(keywords);
+          return teachers;
+        } finally {
+          span.end()
+        }
+      })
   }
 }
