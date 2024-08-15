@@ -1,5 +1,5 @@
 if __name__ == "__main__":
-    from os import environ
+    from os import environ, path
 
     from dotenv import load_dotenv
     from pydantic import RootModel
@@ -9,6 +9,7 @@ if __name__ == "__main__":
 
     from graphtmu.grapher import addTeacher
     from graphtmu.models.teacher import Teacher
+    from graphtmu.utils import DATA_PATH
 
     load_dotenv()
 
@@ -28,7 +29,7 @@ if __name__ == "__main__":
         for triple in graph:
             graph.remove(triple)
 
-    with open("data/teacher.jsonl", mode="r") as f:
+    with open(path.join(DATA_PATH, "./teacher.jsonl"), mode="r") as f:
         for line in tqdm(f.readlines()):
             teacher = RootModel[Teacher].model_validate_json(line).root
             addTeacher(graph, teacher)

@@ -1,5 +1,6 @@
 if __name__ == "__main__":
     from dataclasses import asdict
+    from os import path
 
     from dotenv import load_dotenv
     from firebase_admin import firestore, initialize_app
@@ -11,12 +12,13 @@ if __name__ == "__main__":
     from graphtmu.extractor.llm import get_embeddings
     from graphtmu.models.teacher import Teacher
     from graphtmu.scraper.utils import identifier  # TODO: Fix this import
+    from graphtmu.utils import DATA_PATH
 
     load_dotenv()
     app = initialize_app()
     db = firestore.client()
 
-    with open("data/teacher.jsonl", mode="r") as f:
+    with open(path.join(DATA_PATH, "./teacher.jsonl"), mode="r") as f:
         for line in tqdm(f.readlines()):
             batch = db.batch()
 
