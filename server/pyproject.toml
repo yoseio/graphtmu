@@ -18,7 +18,7 @@ tqdm = "^4.66.4"
 pandas = "^2.2.2"
 
 [tool.poetry.group.llm.dependencies]
-langchain = "^0.2.12"
+langchain = "^0.2.14"
 langchain-community = "^0.2.11"
 langchain-core = "^0.2.29"
 langchain-openai = "^0.1.21"

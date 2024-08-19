@@ -2068,18 +2068,18 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.2.13"
+version = "0.2.14"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain-0.2.13-py3-none-any.whl", hash = "sha256:80f21e48cdada424dd2af9bbf42234fe095744cf181b31eeb63d1da7479e2783"},
-    {file = "langchain-0.2.13.tar.gz", hash = "sha256:947e96ac3153a46aa6a0d8207e5f8b6794084c397f60a01bbf4bba78e6838fee"},
+    {file = "langchain-0.2.14-py3-none-any.whl", hash = "sha256:eed76194ee7d9c081037a3df7868d4de90e0410b51fc1ca933a8379e464bf40c"},
+    {file = "langchain-0.2.14.tar.gz", hash = "sha256:dc2aa5a58882054fb5d043c39ab8332ebd055f88f17839da68e1c7fd0a4fefe2"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.3,<4.0.0"
-langchain-core = ">=0.2.30,<0.3.0"
+langchain-core = ">=0.2.32,<0.3.0"
 langchain-text-splitters = ">=0.2.0,<0.3.0"
 langsmith = ">=0.1.17,<0.2.0"
 numpy = [
@@ -2120,13 +2120,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.2.30"
+version = "0.2.33"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_core-0.2.30-py3-none-any.whl", hash = "sha256:ea7eccb9566dd51b2b74bd292c4239d843a77cdba8ffae2b5edf7000d70d4194"},
-    {file = "langchain_core-0.2.30.tar.gz", hash = "sha256:552ec586698140062cd299a83bad7e308f925b496d306b62529579c6fb122f7a"},
+    {file = "langchain_core-0.2.33-py3-none-any.whl", hash = "sha256:c8de411336c13fa440b7a52895bfd1c064f04d315344855962988483902cc532"},
+    {file = "langchain_core-0.2.33.tar.gz", hash = "sha256:dd2659e0a560fc987b210107bf989aa14a6f4b67dd214c13a2c9669036cda975"},
 ]
 
 [package.dependencies]
@@ -4987,4 +4987,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9c405f96af8cc888bcb4535b4d0df96149e2f907b868d10f227e08714dda9ca8"
+content-hash = "1dea076e130fa98e1892664639854d29bf0866c4a1a0f4e22d7f450a86aca361"
