@@ -1,9 +1,16 @@
-import { FieldValue, CollectionReference } from "@google-cloud/firestore";
+import {
+  CollectionReference,
+  DocumentData,
+  FieldValue,
+  FirestoreDataConverter,
+  QueryDocumentSnapshot,
+  WithFieldValue,
+} from "@google-cloud/firestore";
 import { trace } from "@opentelemetry/api"
 
-import { KeywordConverter } from "@/lib/converters/keyword";
 import { Keyword } from "@/lib/models/keyword";
-import { FirestoreClient, OpenAIClient } from "@/lib/clients";
+import { FirestoreClient } from "@/lib/clients/firebase";
+import { OpenAIClient } from "@/lib/clients/openai";
 
 const COLLECTION_NAME = "keywords";
 const EMBEDDING_MODEL = "text-embedding-3-small";
@@ -11,6 +18,24 @@ const EMBEDDING_DIMENSIONS = 512;
 const EMBEDDING_FIELD = "embedding";
 const EMBEDDING_LIMIT = 10;
 const EMBEDDING_MEASURE = "EUCLIDEAN";
+
+export const KeywordConverter: FirestoreDataConverter<Keyword> = {
+  fromFirestore(snapshot: QueryDocumentSnapshot): Keyword {
+    const data = snapshot.data();
+    return {
+      keyword: data.keyword,
+      embedding: data.embedding,
+      teachers: data.teachers,
+    };
+  },
+  toFirestore(modelObject: WithFieldValue<Keyword>): WithFieldValue<DocumentData> {
+    return {
+      keyword: modelObject.keyword,
+      embedding: modelObject.embedding,
+      teachers: modelObject.teachers,
+    };
+  }
+};
 
 export class KeywordRepository {
   private collection: CollectionReference<Keyword>;
