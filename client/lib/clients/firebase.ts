@@ -1,9 +1,7 @@
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore"
-import OpenAI from "openai";
 
-const FIREBASE_SA_KEY = process.env["FIREBASE_SA_KEY"] || "";
-const OPENAI_API_KEY = process.env["OPENAI_API_KEY"] || "";
+import { FIREBASE_SA_KEY } from "@/lib/constants";
 
 if (!getApps()?.length) {
   initializeApp({
@@ -11,7 +9,3 @@ if (!getApps()?.length) {
   });
 }
 export const FirestoreClient = getFirestore();
-
-export const OpenAIClient = new OpenAI({
-  apiKey: OPENAI_API_KEY,
-});
