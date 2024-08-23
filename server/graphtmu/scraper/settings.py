@@ -7,11 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from os import path
+
 from graphtmu.models.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
 )
 from graphtmu.models.tmu import RawTmuTeacher
+from graphtmu.utils.constants import DATA_PATH
 
 BOT_NAME = "graphtmu.scraper"
 
@@ -102,15 +105,15 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 # https://docs.scrapy.org/en/latest/topics/feed-exports.html
 FEED_EXPORT_ENCODING = "utf-8"
 FEEDS = {
-    "./data/raw/kyouikujouhou/syllabus.jsonl": {
+    path.join(DATA_PATH, "./raw/kyouikujouhou/syllabus.jsonl"): {
         "format": "jsonl",
         "item_classes": [RawKyouikujouhouSyllabus],
     },
-    "./data/raw/kyouikujouhou/teacher.jsonl": {
+    path.join(DATA_PATH, "./raw/kyouikujouhou/teacher.jsonl"): {
         "format": "jsonl",
         "item_classes": [RawKyouikujouhouTeacher],
     },
-    "./data/raw/tmu/teacher.jsonl": {
+    path.join(DATA_PATH, "./raw/tmu/teacher.jsonl"): {
         "format": "jsonl",
         "item_classes": [RawTmuTeacher],
     },
