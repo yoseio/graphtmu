@@ -1,4 +1,10 @@
+from dataclasses import asdict
+from os import path
 from typing import List, Optional
+
+from pandas import DataFrame
+from pydantic import RootModel
+from tqdm import tqdm
 
 from graphtmu.extractor.llm import get_keywords
 from graphtmu.models.teacher import (
@@ -9,6 +15,7 @@ from graphtmu.models.teacher import (
     Thing,
 )
 from graphtmu.models.tmu import RawTmuTeacher
+from graphtmu.utils.constants import DATA_PATH
 
 
 class TeacherExtractor:
@@ -89,16 +96,7 @@ class TeacherExtractor:
 
 
 if __name__ == "__main__":
-    from dataclasses import asdict
-
-    from dotenv import load_dotenv
-    from pandas import DataFrame
-    from pydantic import RootModel
-    from tqdm import tqdm
-
-    load_dotenv()
-
-    with open("data/raw/tmu/teacher.jsonl", mode="r") as f:
+    with open(path.join(DATA_PATH, "./raw/tmu/teacher.jsonl"), mode="r") as f:
         teachers = []
         for line in tqdm(f.readlines()):
             teachers.append(
@@ -108,4 +106,9 @@ if __name__ == "__main__":
             )
 
     df = DataFrame(map(asdict, teachers))
-    df.to_json("data/teacher.jsonl", orient="records", force_ascii=False, lines=True)
+    df.to_json(
+        path.join(DATA_PATH, "./teacher.jsonl"),
+        orient="records",
+        force_ascii=False,
+        lines=True,
+    )

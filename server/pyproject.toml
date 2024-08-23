@@ -65,7 +65,7 @@ extract_firestore = "python -m graphtmu.extractor.firestore"
 graph = "python -m graphtmu.grapher"
 
 # scraper
-scrape_reset = "rm -rf data/raw/*"
+scrape_reset = "rm -rf ../data/raw/*"
 scrape_kyouikujouhou = "scrapy crawl kyouikujouhou"
 scrape_tmu = "scrapy crawl tmu"
 
