@@ -1,7 +1,6 @@
 from dataclasses import asdict
 from os import path
 
-from dotenv import load_dotenv
 from firebase_admin import firestore, initialize_app
 from google.cloud.firestore import ArrayUnion
 from google.cloud.firestore_v1.vector import Vector
@@ -14,7 +13,6 @@ from graphtmu.scraper.utils import identifier  # TODO: Fix this import
 from graphtmu.utils.constants import DATA_PATH
 
 if __name__ == "__main__":
-    load_dotenv()
     app = initialize_app()
     db = firestore.client()
 

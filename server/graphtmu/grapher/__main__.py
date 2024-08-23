@@ -1,6 +1,5 @@
 from os import path
 
-from dotenv import load_dotenv
 from pydantic import RootModel
 from rdflib import Graph
 from rdflib_neo4j import HANDLE_VOCAB_URI_STRATEGY, Neo4jStore, Neo4jStoreConfig
@@ -17,8 +16,6 @@ from graphtmu.utils.constants import (
 )
 
 if __name__ == "__main__":
-    load_dotenv()
-
     config = Neo4jStoreConfig(
         auth_data={
             "uri": NEO4J_URI,
@@ -30,7 +27,7 @@ if __name__ == "__main__":
         batching=True,
     )
 
-    graph = Graph(store=Neo4jStore(config=config))
+    graph = Graph(store=Neo4jStore(config=config))  # type: ignore
     if len(graph) != 0:
         for triple in graph:
             graph.remove(triple)

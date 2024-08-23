@@ -2,7 +2,6 @@ from dataclasses import asdict
 from os import path
 from typing import List, Optional
 
-from dotenv import load_dotenv
 from pandas import DataFrame
 from pydantic import RootModel
 from tqdm import tqdm
@@ -97,8 +96,6 @@ class TeacherExtractor:
 
 
 if __name__ == "__main__":
-    load_dotenv()
-
     with open(path.join(DATA_PATH, "./raw/tmu/teacher.jsonl"), mode="r") as f:
         teachers = []
         for line in tqdm(f.readlines()):
