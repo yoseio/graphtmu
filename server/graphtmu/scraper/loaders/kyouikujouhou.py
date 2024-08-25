@@ -5,7 +5,7 @@ from itemloaders.processors import Identity, MapCompose, TakeFirst
 from scrapy.http import Response
 from scrapy.loader import ItemLoader
 
-from graphtmu.models.kyouikujouhou import (
+from graphtmu.models.raw.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
     授業基本情報,

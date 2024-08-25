@@ -6,7 +6,7 @@ from rdflib_neo4j import HANDLE_VOCAB_URI_STRATEGY, Neo4jStore, Neo4jStoreConfig
 from tqdm import tqdm
 
 from graphtmu.grapher import addTeacher
-from graphtmu.models.teacher import Teacher
+from graphtmu.models.sdo.teacher import Teacher
 from graphtmu.utils.constants import (
     DATA_PATH,
     NEO4J_DATABASE,

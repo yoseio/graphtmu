@@ -7,14 +7,14 @@ from pydantic import RootModel
 from tqdm import tqdm
 
 from graphtmu.extractor.llm import get_keywords
-from graphtmu.models.teacher import (
+from graphtmu.models.raw.tmu import RawTmuTeacher
+from graphtmu.models.sdo.teacher import (
     ContactPoint,
     DefinedTerm,
     Organization,
     Teacher,
     Thing,
 )
-from graphtmu.models.tmu import RawTmuTeacher
 from graphtmu.utils.constants import DATA_PATH
 
 

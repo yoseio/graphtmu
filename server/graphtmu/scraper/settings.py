@@ -9,11 +9,11 @@
 
 from os import path
 
-from graphtmu.models.kyouikujouhou import (
+from graphtmu.models.raw.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
 )
-from graphtmu.models.tmu import RawTmuTeacher
+from graphtmu.models.raw.tmu import RawTmuTeacher
 from graphtmu.utils.constants import DATA_PATH
 
 BOT_NAME = "graphtmu.scraper"

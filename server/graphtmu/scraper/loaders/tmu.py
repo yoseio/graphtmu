@@ -5,7 +5,7 @@ from itemloaders.processors import Identity, MapCompose, TakeFirst
 from scrapy.http import Response
 from scrapy.loader import ItemLoader
 
-from graphtmu.models.tmu import RawTmuTeacher, 教員情報
+from graphtmu.models.raw.tmu import RawTmuTeacher, 教員情報
 from graphtmu.scraper.utils import identifier, post, pre, splitlines
 from graphtmu.scraper.utils.tmu import XPATH_TEACHER_PROFILE
 
