@@ -1,4 +1,4 @@
-import { trace } from "@opentelemetry/api"
+import { trace } from "@opentelemetry/api";
 
 import { UnrefedKeyword } from "@/lib/models/keyword";
 import { Teacher } from "@/lib/models/teacher";
@@ -20,7 +20,7 @@ export class TeacherUseCase {
 
     keywords.forEach((keyword, index) => {
       const weight = 1 / (index + 1);
-      keyword.teachers.forEach(teacher => {
+      keyword.teachers.forEach((teacher) => {
         const prevWeight = scores.get(teacher.identifier) || 0;
         teachers.set(teacher.identifier, teacher);
         scores.set(teacher.identifier, prevWeight + weight);
@@ -29,8 +29,8 @@ export class TeacherUseCase {
 
     return Array.from(scores.entries())
       .sort((a, b) => b[1] - a[1])
-      .map(entry => entry[0])
-      .map(id => teachers.get(id) as Teacher);
+      .map((entry) => entry[0])
+      .map((id) => teachers.get(id) as Teacher);
   }
 
   public getById(id: string): Promise<Teacher | undefined> {
@@ -40,9 +40,9 @@ export class TeacherUseCase {
         try {
           return this.teacherRepository.getById(id);
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public getByIdWithCache(id: string): Promise<Teacher | undefined> {
@@ -52,9 +52,9 @@ export class TeacherUseCase {
         try {
           return this.teacherRepository.getByIdWithCache(id);
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public getAll(): Promise<Teacher[]> {
@@ -64,9 +64,9 @@ export class TeacherUseCase {
         try {
           return this.teacherRepository.getAll();
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public getAllWithCache(): Promise<Teacher[]> {
@@ -76,9 +76,9 @@ export class TeacherUseCase {
         try {
           return this.teacherRepository.getAllWithCache();
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public async findByKeyword(keyword: string): Promise<Teacher[]> {
@@ -90,8 +90,8 @@ export class TeacherUseCase {
           const teachers = this.ranking(keywords);
           return teachers;
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 }

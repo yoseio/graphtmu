@@ -6,7 +6,7 @@ import {
   QueryDocumentSnapshot,
   WithFieldValue,
 } from "@google-cloud/firestore";
-import { trace } from "@opentelemetry/api"
+import { trace } from "@opentelemetry/api";
 
 import { Keyword } from "@/lib/models/keyword";
 import { FirestoreClient } from "@/lib/clients/firebase";
@@ -28,22 +28,25 @@ export const KeywordConverter: FirestoreDataConverter<Keyword> = {
       teachers: data.teachers,
     };
   },
-  toFirestore(modelObject: WithFieldValue<Keyword>): WithFieldValue<DocumentData> {
+  toFirestore(
+    modelObject: WithFieldValue<Keyword>,
+  ): WithFieldValue<DocumentData> {
     return {
       keyword: modelObject.keyword,
       embedding: modelObject.embedding,
       teachers: modelObject.teachers,
     };
-  }
+  },
 };
 
 export class KeywordRepository {
   private collection: CollectionReference<Keyword>;
 
   constructor() {
-    this.collection = FirestoreClient
-      .collection(COLLECTION_NAME)
-      .withConverter(KeywordConverter);
+    this.collection =
+      FirestoreClient.collection(COLLECTION_NAME).withConverter(
+        KeywordConverter,
+      );
   }
 
   public async getEmbedding(keyword: string): Promise<number[]> {
@@ -58,9 +61,9 @@ export class KeywordRepository {
           });
           return embedding.data[0].embedding;
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public async findNearest(embedding: number[]): Promise<Keyword[]> {
@@ -68,16 +71,17 @@ export class KeywordRepository {
       .getTracer("GraphTMU")
       .startActiveSpan("KeywordRepository.findNearest", async (span) => {
         try {
-          const snapshot = await this.collection.findNearest(
-            EMBEDDING_FIELD,
-            FieldValue.vector(embedding),
-            { limit: EMBEDDING_LIMIT, distanceMeasure: EMBEDDING_MEASURE },
-          ).get();
+          const snapshot = await this.collection
+            .findNearest(EMBEDDING_FIELD, FieldValue.vector(embedding), {
+              limit: EMBEDDING_LIMIT,
+              distanceMeasure: EMBEDDING_MEASURE,
+            })
+            .get();
           const docs = snapshot.docs.map((doc) => doc.data());
           return docs;
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 }

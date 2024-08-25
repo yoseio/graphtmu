@@ -4,7 +4,7 @@ import { Teacher } from "@/lib/models/teacher";
 import Link from "next/link";
 
 export interface TeacherCardProps {
-  teacher: Teacher
+  teacher: Teacher;
 }
 
 export function TeacherCard(props: TeacherCardProps) {
@@ -17,18 +17,22 @@ export function TeacherCard(props: TeacherCardProps) {
           </h3>
         </Link>
         <p className="text-muted-foreground">
-          {props.teacher.affiliation.map((aff, idx, arr) => (
-            `${aff.name}${idx < arr.length - 1 ? ', ' : ''}`
-          ))}
+          {props.teacher.affiliation.map(
+            (aff, idx, arr) => `${aff.name}${idx < arr.length - 1 ? ", " : ""}`,
+          )}
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
-          {props.teacher.knowsAbout.map(knowsAbout => (
-            <Badge key={knowsAbout.identifier} variant="secondary" className="hover:bg-secondary/50">
+          {props.teacher.knowsAbout.map((knowsAbout) => (
+            <Badge
+              key={knowsAbout.identifier}
+              variant="secondary"
+              className="hover:bg-secondary/50"
+            >
               {knowsAbout.name}
             </Badge>
           ))}
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

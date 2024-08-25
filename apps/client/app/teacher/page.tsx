@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import useSWR from 'swr';
+import useSWR from "swr";
 
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import { TeacherCard } from "@/components/TeacherCard";
 import { keywordsFetcher } from "@/lib/fetchers/keyword";
 import { useHandleParam } from "@/lib/hooks/useHandleParam";
@@ -31,5 +31,5 @@ export default function Page() {
         ))}
       </div>
     </>
-  )
+  );
 }

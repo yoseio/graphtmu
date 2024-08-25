@@ -5,7 +5,7 @@ import { Container } from "@/components/Container";
 import { Logo } from "@/components/Logo";
 
 export interface NavbarProps {
-  links: { contents: ReactNode, url: string }[]
+  links: { contents: ReactNode; url: string }[];
 }
 
 export function Navbar(props: NavbarProps) {
@@ -17,7 +17,7 @@ export function Navbar(props: NavbarProps) {
           <span className="sr-only">Brainoid</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          {props.links.map(link => (
+          {props.links.map((link) => (
             <Link
               key={link.url}
               href={link.url}
@@ -29,5 +29,5 @@ export function Navbar(props: NavbarProps) {
         </nav>
       </Container>
     </header>
-  )
+  );
 }

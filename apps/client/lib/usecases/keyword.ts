@@ -1,4 +1,4 @@
-import { trace } from "@opentelemetry/api"
+import { trace } from "@opentelemetry/api";
 
 import { Keyword, UnrefedKeyword } from "@/lib/models/keyword";
 import { Teacher } from "@/lib/models/teacher";
@@ -16,8 +16,12 @@ export class KeywordUseCase {
       .getTracer("GraphTMU")
       .startActiveSpan("KeywordUseCase.unref", async (span) => {
         try {
-          const snapshots = await Promise.all(keyword.teachers.map(async (ref) => ref.get()));
-          const teachers = snapshots.map((snapshot) => snapshot.data()).filter((item): item is Teacher => !!item);
+          const snapshots = await Promise.all(
+            keyword.teachers.map(async (ref) => ref.get()),
+          );
+          const teachers = snapshots
+            .map((snapshot) => snapshot.data())
+            .filter((item): item is Teacher => !!item);
 
           return {
             keyword: keyword.keyword,
@@ -25,9 +29,9 @@ export class KeywordUseCase {
             teachers,
           };
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public async findNearest(keyword: string): Promise<UnrefedKeyword[]> {
@@ -39,8 +43,8 @@ export class KeywordUseCase {
           const keywords = await this.keywordRepository.findNearest(embedding);
           return Promise.all(keywords.map(this.unref));
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 }

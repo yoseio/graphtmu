@@ -1,4 +1,4 @@
-import { unstable_cache } from "next/cache"
+import { unstable_cache } from "next/cache";
 import {
   CollectionReference,
   DocumentData,
@@ -6,7 +6,7 @@ import {
   QueryDocumentSnapshot,
   WithFieldValue,
 } from "@google-cloud/firestore";
-import { trace } from "@opentelemetry/api"
+import { trace } from "@opentelemetry/api";
 
 import { Teacher } from "@/lib/models/teacher";
 import { FirestoreClient } from "@/lib/clients/firebase";
@@ -28,7 +28,9 @@ export const TeacherConverter: FirestoreDataConverter<Teacher> = {
       workLocation: data.workLocation,
     };
   },
-  toFirestore(modelObject: WithFieldValue<Teacher>): WithFieldValue<DocumentData> {
+  toFirestore(
+    modelObject: WithFieldValue<Teacher>,
+  ): WithFieldValue<DocumentData> {
     return {
       identifier: modelObject.identifier,
       affiliation: modelObject.affiliation,
@@ -40,16 +42,17 @@ export const TeacherConverter: FirestoreDataConverter<Teacher> = {
       name: modelObject.name,
       workLocation: modelObject.workLocation,
     };
-  }
+  },
 };
 
 export class TeacherRepository {
   private collection: CollectionReference<Teacher>;
 
   constructor() {
-    this.collection = FirestoreClient
-      .collection(COLLECTION_NAME)
-      .withConverter(TeacherConverter);
+    this.collection =
+      FirestoreClient.collection(COLLECTION_NAME).withConverter(
+        TeacherConverter,
+      );
   }
 
   public async getById(id: string): Promise<Teacher | undefined> {
@@ -61,9 +64,9 @@ export class TeacherRepository {
           const data = snapshot.data();
           return data;
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public getByIdWithCache(id: string): Promise<Teacher | undefined> {
@@ -73,9 +76,9 @@ export class TeacherRepository {
         try {
           return unstable_cache((id) => this.getById(id))(id);
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public async getAll(): Promise<Teacher[]> {
@@ -84,12 +87,12 @@ export class TeacherRepository {
       .startActiveSpan("TeacherRepository.getAll", async (span) => {
         try {
           const snapshot = await this.collection.get();
-          const teachers = snapshot.docs.map(doc => doc.data());
+          const teachers = snapshot.docs.map((doc) => doc.data());
           return teachers;
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 
   public getAllWithCache(): Promise<Teacher[]> {
@@ -99,8 +102,8 @@ export class TeacherRepository {
         try {
           return unstable_cache(() => this.getAll())();
         } finally {
-          span.end()
+          span.end();
         }
-      })
+      });
   }
 }

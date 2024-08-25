@@ -15,4 +15,4 @@ export const useHandleParam = (key: string) => {
     }
     replace(`${pathname}?${params.toString()}`);
   }, 500);
-}
+};

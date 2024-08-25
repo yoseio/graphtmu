@@ -2,8 +2,7 @@ import { forwardRef, HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-export interface ContainerProps
-  extends HTMLAttributes<HTMLDivElement> {}
+export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {}
 
 const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, ...props }, ref) => {
@@ -13,9 +12,9 @@ const Container = forwardRef<HTMLDivElement, ContainerProps>(
         ref={ref}
         {...props}
       />
-    )
-  }
-)
-Container.displayName = "Container"
+    );
+  },
+);
+Container.displayName = "Container";
 
-export { Container }
+export { Container };
