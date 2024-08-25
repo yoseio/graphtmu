@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import OpenAI from "openai/index.mjs";
 
 import { OPENAI_API_KEY } from "@/lib/constants";
 
