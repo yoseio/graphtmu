@@ -2,11 +2,6 @@ from dataclasses import asdict
 from os import path
 from typing import List, Optional
 
-from pandas import DataFrame
-from pydantic import RootModel
-from tqdm import tqdm
-
-from extractor.llm import get_keywords
 from models.raw.tmu import RawTmuTeacher
 from models.sdo.teacher import (
     ContactPoint,
@@ -15,7 +10,12 @@ from models.sdo.teacher import (
     Teacher,
     Thing,
 )
+from pandas import DataFrame
+from pydantic import RootModel
+from tqdm import tqdm
 from utils.constants import DATA_PATH
+
+from extractor.llm import get_keywords
 
 
 class TeacherExtractor:

@@ -2,9 +2,6 @@ import logging
 from pathlib import Path
 
 from itemloaders.processors import Identity, MapCompose, TakeFirst
-from scrapy.http import Response
-from scrapy.loader import ItemLoader
-
 from models.raw.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
@@ -13,6 +10,9 @@ from models.raw.kyouikujouhou import (
     教員情報,
     教員詳細情報,
 )
+from scrapy.http import Response
+from scrapy.loader import ItemLoader
+
 from scraper.utils import (
     get_keys,
     post,

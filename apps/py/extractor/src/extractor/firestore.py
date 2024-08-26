@@ -4,13 +4,13 @@ from os import path
 from firebase_admin import firestore, initialize_app
 from google.cloud.firestore import ArrayUnion
 from google.cloud.firestore_v1.vector import Vector
+from models.sdo.teacher import Teacher
 from pydantic import RootModel
+from scraper.utils import identifier  # TODO: Fix this import
 from tqdm import tqdm
+from utils.constants import DATA_PATH
 
 from extractor.llm import get_embeddings
-from models.sdo.teacher import Teacher
-from scraper.utils import identifier  # TODO: Fix this import
-from utils.constants import DATA_PATH
 
 if __name__ == "__main__":
     app = initialize_app()

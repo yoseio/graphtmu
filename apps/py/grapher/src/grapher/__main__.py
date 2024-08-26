@@ -1,12 +1,10 @@
 from os import path
 
+from models.sdo.teacher import Teacher
 from pydantic import RootModel
 from rdflib import Graph
 from rdflib_neo4j import HANDLE_VOCAB_URI_STRATEGY, Neo4jStore, Neo4jStoreConfig
 from tqdm import tqdm
-
-from grapher import addTeacher
-from models.sdo.teacher import Teacher
 from utils.constants import (
     DATA_PATH,
     NEO4J_DATABASE,
@@ -14,6 +12,8 @@ from utils.constants import (
     NEO4J_URI,
     NEO4J_USER,
 )
+
+from grapher import addTeacher
 
 if __name__ == "__main__":
     config = Neo4jStoreConfig(

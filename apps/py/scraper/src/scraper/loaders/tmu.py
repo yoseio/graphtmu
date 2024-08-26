@@ -2,10 +2,10 @@ import logging
 from pathlib import Path
 
 from itemloaders.processors import Identity, MapCompose, TakeFirst
+from models.raw.tmu import RawTmuTeacher, 教員情報
 from scrapy.http import Response
 from scrapy.loader import ItemLoader
 
-from models.raw.tmu import RawTmuTeacher, 教員情報
 from scraper.utils import identifier, post, pre, splitlines
 from scraper.utils.tmu import XPATH_TEACHER_PROFILE
 

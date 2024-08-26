@@ -1,8 +1,5 @@
 from urllib.parse import quote, urljoin
 
-from rdflib import RDF, Graph, Literal, URIRef
-from rdflib.namespace import SDO
-
 from models.sdo.teacher import (
     ContactPoint,
     DefinedTerm,
@@ -10,6 +7,8 @@ from models.sdo.teacher import (
     Teacher,
     Thing,
 )
+from rdflib import RDF, Graph, Literal, URIRef
+from rdflib.namespace import SDO
 
 
 def addOrganization(graph: Graph, data: Organization) -> URIRef:
