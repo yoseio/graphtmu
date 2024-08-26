@@ -3,7 +3,7 @@ from urllib.parse import quote, urljoin
 from rdflib import RDF, Graph, Literal, URIRef
 from rdflib.namespace import SDO
 
-from graphtmu.models.sdo.teacher import (
+from models.sdo.teacher import (
     ContactPoint,
     DefinedTerm,
     Organization,

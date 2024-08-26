@@ -6,16 +6,16 @@ from pandas import DataFrame
 from pydantic import RootModel
 from tqdm import tqdm
 
-from graphtmu.extractor.llm import get_keywords
-from graphtmu.models.raw.tmu import RawTmuTeacher
-from graphtmu.models.sdo.teacher import (
+from extractor.llm import get_keywords
+from models.raw.tmu import RawTmuTeacher
+from models.sdo.teacher import (
     ContactPoint,
     DefinedTerm,
     Organization,
     Teacher,
     Thing,
 )
-from graphtmu.utils.constants import DATA_PATH
+from utils.constants import DATA_PATH
 
 
 class TeacherExtractor:

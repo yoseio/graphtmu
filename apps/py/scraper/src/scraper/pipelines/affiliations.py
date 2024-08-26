@@ -4,7 +4,7 @@ from typing import List
 from itemadapter.adapter import ItemAdapter
 from toolz.curried import filter, map, pipe
 
-from graphtmu.scraper.utils import replace, split, splitlines
+from scraper.utils import replace, split, splitlines
 
 
 class AffiliationsPipeline:

@@ -5,7 +5,7 @@ from itemloaders.processors import Identity, MapCompose, TakeFirst
 from scrapy.http import Response
 from scrapy.loader import ItemLoader
 
-from graphtmu.models.raw.kyouikujouhou import (
+from models.raw.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
     授業基本情報,
@@ -13,13 +13,13 @@ from graphtmu.models.raw.kyouikujouhou import (
     教員情報,
     教員詳細情報,
 )
-from graphtmu.scraper.utils import (
+from scraper.utils import (
     get_keys,
     post,
     pre,
     split,
 )
-from graphtmu.scraper.utils.kyouikujouhou import (
+from scraper.utils.kyouikujouhou import (
     BASE_XPATH_SYLLABUS_KEY,
     BASE_XPATH_SYLLABUS_VAL,
     BASE_XPATH_TEACHER_KEY,

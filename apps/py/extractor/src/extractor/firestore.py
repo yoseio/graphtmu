@@ -7,10 +7,10 @@ from google.cloud.firestore_v1.vector import Vector
 from pydantic import RootModel
 from tqdm import tqdm
 
-from graphtmu.extractor.llm import get_embeddings
-from graphtmu.models.sdo.teacher import Teacher
-from graphtmu.scraper.utils import identifier  # TODO: Fix this import
-from graphtmu.utils.constants import DATA_PATH
+from extractor.llm import get_embeddings
+from models.sdo.teacher import Teacher
+from scraper.utils import identifier  # TODO: Fix this import
+from utils.constants import DATA_PATH
 
 if __name__ == "__main__":
     app = initialize_app()

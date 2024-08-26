@@ -4,8 +4,8 @@ from scrapy import Spider
 from scrapy.http import Response
 from scrapy.linkextractors import LinkExtractor
 
-from graphtmu.scraper.loaders.tmu import load_teacher
-from graphtmu.scraper.utils.tmu import START_URLS
+from scraper.loaders.tmu import load_teacher
+from scraper.utils.tmu import START_URLS
 
 
 class TmuSpider(Spider):

@@ -1,0 +1,21 @@
+[project]
+name = "grapher"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic[email]>=2.8.2",
+    "rdflib-neo4j>=1.1",
+    "rdflib>=7.0.0",
+    "tqdm>=4.66.5",
+
+    "models",
+    "utils",
+]
+
+[tool.uv.sources]
+models = { workspace = true }
+utils = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

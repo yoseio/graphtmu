@@ -3,12 +3,12 @@ from typing import List
 from scrapy import Spider
 from scrapy.http import Response
 
-from graphtmu.scraper.loaders.kyouikujouhou import (
+from scraper.loaders.kyouikujouhou import (
     get_link,
     load_syallabus,
     load_teacher,
 )
-from graphtmu.scraper.utils.kyouikujouhou import (
+from scraper.utils.kyouikujouhou import (
     LINK_PATTERN_1,
     LINK_PATTERN_2,
     START_URLS,

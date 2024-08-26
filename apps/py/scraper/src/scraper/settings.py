@@ -9,17 +9,17 @@
 
 from os import path
 
-from graphtmu.models.raw.kyouikujouhou import (
+from models.raw.kyouikujouhou import (
     RawKyouikujouhouSyllabus,
     RawKyouikujouhouTeacher,
 )
-from graphtmu.models.raw.tmu import RawTmuTeacher
-from graphtmu.utils.constants import DATA_PATH
+from models.raw.tmu import RawTmuTeacher
+from utils.constants import DATA_PATH
 
-BOT_NAME = "graphtmu.scraper"
+BOT_NAME = "scraper"
 
-SPIDER_MODULES = ["graphtmu.scraper.spiders"]
-NEWSPIDER_MODULE = "graphtmu.scraper.spiders"
+SPIDER_MODULES = ["scraper.spiders"]
+NEWSPIDER_MODULE = "scraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -72,8 +72,8 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "graphtmu.scraper.pipelines.affiliations.AffiliationsPipeline": 10,
-    "graphtmu.scraper.pipelines.email.EmailPipeline": 20,
+    "scraper.pipelines.affiliations.AffiliationsPipeline": 10,
+    "scraper.pipelines.email.EmailPipeline": 20,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

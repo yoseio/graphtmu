@@ -1,0 +1,9 @@
+[tool.uv.workspace]
+members = [
+    "apps/py/*",
+    "packages/py/*",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
