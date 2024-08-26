@@ -1,0 +1,35 @@
+{
+  "name": "graphtmu",
+  "version": "0.1.0",
+  "description": "TMU needs to do something about its shitty syllabus search system.",
+  "bugs": {
+    "url": "https://github.com/yoseio/graphtmu/issues",
+    "email": "yoseio@brainoid.dev"
+  },
+  "license": "MIT",
+  "author": "yoseio <yoseio@brainoid.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoseio/graphtmu.git"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.14",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true,
+  "workspaces": [
+    "apps/js/*",
+    "packages/js/*"
+  ],
+  "packageManager": "npm@10.8.1"
+}

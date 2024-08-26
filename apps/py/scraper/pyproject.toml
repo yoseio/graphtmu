@@ -1,0 +1,22 @@
+[project]
+name = "scraper"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "email-validator>=2.2.0",
+    "itemadapter>=0.9.0",
+    "scrapy>=2.11.2",
+    "toolz>=0.12.1",
+    "w3lib>=2.2.1",
+
+    "models",
+    "utils",
+]
+
+[tool.uv.sources]
+models = { workspace = true }
+utils = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

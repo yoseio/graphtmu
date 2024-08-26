@@ -1,0 +1,28 @@
+[project]
+name = "extractor"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "firebase-admin>=6.5.0",
+    "google-cloud-firestore>=2.17.2",
+    "langchain-community>=0.2.12",
+    "langchain-core>=0.2.35",
+    "langchain-openai>=0.1.22",
+    "langchain>=0.2.14",
+    "pandas>=2.2.2",
+    "pydantic[email]>=2.8.2",
+    "tqdm>=4.66.5",
+
+    "models",
+    "scraper",
+    "utils",
+]
+
+[tool.uv.sources]
+models = { workspace = true }
+scraper = { workspace = true }
+utils = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
